@@ -1,0 +1,51 @@
+.container {
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.form-floating input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  z-index: 5;
+}
+
+.form-floating input[type="password"] {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.form-control:focus {
+  border: var(--bs-border-width) solid var(--bs-border-color) !important;
+  box-shadow: none !important;
+}
+
+.index-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+  height: calc(100vh - 64px);
+}
+
+.index-container > div {
+  height: 100%;
+}
+
+.l-panel {
+}
+
+.r-panel {
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+button {
+  border: none;
+}
