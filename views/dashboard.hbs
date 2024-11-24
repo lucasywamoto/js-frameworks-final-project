@@ -1,0 +1,24 @@
+<div class="index-container">
+  <div class="container l-panel w-25 p-5 px-10 rounded-3 m-auto">
+    <div class="d-flex align-items-center justify-content-between">
+      <div>
+        <h4 class="fw-light mb-0">Hello,</h4>
+        <h2>Lucas!</h2>
+      </div>
+      <img
+        src="https://via.placeholder.com/150"
+        class="rounded-circle border border-3 border-primary avatar"
+        alt="Avatar"
+        width="100"
+        height="100"
+      />
+    </div>
+    <hr class="my-4" />
+    <div id="mood-form-container">
+      {{> (lookup . "form") }}
+    </div>
+  </div>
+  <div class="container r-panel w-75 p-5 px-10 rounded-3 m-auto">
+    {{> panels}}
+  </div>
+</div>

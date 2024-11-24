@@ -1,23 +1,57 @@
 var createError = require("http-errors");
 var express = require("express");
+const { engine } = require("express-handlebars");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
 var loginRouter = require("./routes/login");
+var dashboardRouter = require("./routes/dashboard");
+var Mood = require("./models/mood");
 
 var mongoose = require("mongoose");
 var configs = require("./configs/globals");
 
 var hbs = require("hbs");
 
-var Mood = require("./models/mood");
-
 var app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "hbs");
+
+app.engine(
+  "hbs",
+  engine({
+    extname: ".hbs",
+    partialsDir: path.join(__dirname, "views", "partials"),
+    runtimeOptions: {
+      allowProtoPropertiesByDefault: true,
+    },
+    helpers: {
+      ifCond: function (v1, operator, v2, options) {
+        switch (operator) {
+          case "==":
+            return v1 == v2 ? options.fn(this) : options.inverse(this);
+          case "!=":
+            return v1 != v2 ? options.fn(this) : options.inverse(this);
+          case "<":
+            return v1 < v2 ? options.fn(this) : options.inverse(this);
+          case "<=":
+            return v1 <= v2 ? options.fn(this) : options.inverse(this);
+          case ">":
+            return v1 > v2 ? options.fn(this) : options.inverse(this);
+          case ">=":
+            return v1 >= v2 ? options.fn(this) : options.inverse(this);
+          default:
+            return options.inverse(this);
+        }
+      },
+    },
+  })
+);
+
 app.set("view engine", "hbs");
 
 app.use(logger("dev"));
@@ -28,6 +62,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/", loginRouter);
+app.use("/dashboard", dashboardRouter);
 
 mongoose
   .connect(configs.ConnectionStrings.MongoDB)

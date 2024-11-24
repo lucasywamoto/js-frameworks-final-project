@@ -1,0 +1,31 @@
+<div id="selected-mood-view">
+  <div id="selected-mood-container"></div>
+  <h4 id="selected-mood-text" class="mb-0 fw-light">You are</h4>
+  <h2 style="font-size: 42px; font-weight: bold; margin: 0; color: {{#ifCond type '==' 'Positive'}}#00CCDD{{/ifCond}}{{#ifCond type '==' 'Neutral'}}#4F75FF{{/ifCond}}{{#ifCond type '==' 'Negative'}}#6439FF{{/ifCond}}">
+    {{mood}}
+  </h2>
+  <form action="">
+    <textarea
+      class="form-control mt-4"
+      name="note"
+      id="note"
+      placeholder="Add comment"
+      rows="8"
+      style="resize: none;"
+    ></textarea>
+    <label class="mt-4" for="upload-image">Add image</label>
+    <input
+      type="file"
+      class="form-control-file"
+      id="upload-image"
+      accept="image/*"
+      style="width: 100%;"
+    />
+    <a
+      id="back-button"
+      class="btn btn-outline-secondary mt-4"
+      href="http://localhost:3000/dashboard"
+    >Back</a>
+    <a id="submit-button" class="btn btn-secondary mt-4">Submit</a>
+  </form>
+</div>

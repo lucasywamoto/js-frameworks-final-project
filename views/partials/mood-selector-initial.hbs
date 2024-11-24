@@ -1,0 +1,33 @@
+ <div id="initial-view">
+    <h4 class="fw-light mb-3">How are you<br />feeling today?</h4>
+    <form action="">
+    <input
+        type="search"
+        class="form-control"
+        id="search-input"
+        placeholder="Search..."
+        aria-label="Search"
+    />
+    </form>
+
+    <div id="mood-buttons">
+    {{#each dataset}}
+        <a
+        href="http://localhost:3000/dashboard/selected?mood={{this.mood}}&type={{this.type}}"
+        class="badge rounded-pill py-2 px-3 mb-2"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="{{this.tooltip}}"
+        style="background-color: 
+            {{#ifCond this.type '==' 'Positive'}}#00CCDD{{/ifCond}}
+            {{#ifCond this.type '==' 'Neutral'}}#4F75FF{{/ifCond}}
+            {{#ifCond this.type '==' 'Negative'}}#6439FF{{/ifCond}};
+            text-decoration: none;"
+        data-mood="{{this.mood}}"
+        data-type="{{this.type}}"
+        >
+  {{this.mood}}
+</a>
+    {{/each}}
+    </div>
+</div>
