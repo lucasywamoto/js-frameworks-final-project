@@ -1,0 +1,18 @@
+<div class="panels">
+    <div class="panel p-5 px-10 rounded-3 text-white">
+    <h4 class="fw-light mb-0">Most people<br>are feeling</h4>
+    <h2 style="font-size: 42px; font-weight: bold; margin: 0; color: {{#ifCond type '==' 'Positive'}}#00CCDD{{/ifCond}}{{#ifCond type '==' 'Neutral'}}#4F75FF{{/ifCond}}{{#ifCond type '==' 'Negative'}}#6439FF{{/ifCond}}">
+        {{mood}}
+    </h2>
+        <h4 class="fw-light mb-0">today</h4>
+    </div>
+    <div class="panel w-25 p-5 px-10 rounded-3 text-white">
+        {{#each last7DaysDataset}}
+            <div class="mood-entry">
+            <p>{{this.created}} - {{this.mood}}</p>
+            <div class="mood-dot"></div>
+            </div>
+        {{/each}}
+    </div>
+</div>
+<script src="/javascripts/panels-script.js"></script>

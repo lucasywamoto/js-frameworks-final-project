@@ -1,4 +1,5 @@
 <div class="index-container">
+  {{!-- {{#if user}} --}}
   <div class="container l-panel w-25 p-5 px-10 rounded-3 m-auto">
     <div class="d-flex align-items-center justify-content-between">
       <div>
@@ -18,7 +19,10 @@
       {{> (lookup . "form") }}
     </div>
   </div>
-  <div class="container r-panel w-75 p-5 px-10 rounded-3 m-auto">
+    {{!-- {{/if}} --}}
+
+  <div class="container r-panel p-5 px-10 rounded-3 m-auto">
     {{> panels}}
   </div>
 </div>
+<script src="/javascripts/dashboard-script.js"></script>

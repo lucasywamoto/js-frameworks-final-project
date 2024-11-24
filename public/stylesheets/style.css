@@ -33,11 +33,67 @@
   height: 100%;
 }
 
+#initial-view {
+  display: grid;
+  width: 100%;
+  height: 100%;
+}
+
+.l-panel {
+  min-width: 410px;
+  margin-left: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer */
+}
+
+.l-panel::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge */
+}
+
+#mood-form-container {
+  height: 100%;
+}
+
+#mood-buttons {
+  min-height: none;
+  overflow: auto;
+  padding-top: 8px;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer */
+}
+
+#mood-buttons::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge */
+}
+
+#spectrum-label {
+  margin-top: 16px;
+  width: 100%;
+  align-self: end;
+}
+
+#spectrum-label div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#spectrum-bar {
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  background: linear-gradient(to right, #00ccdd, #4f75ff, #6439ff);
+}
+
 .r-panel {
   background: rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(100px);
   -webkit-backdrop-filter: blur(100px);
+  width: 100%;
 }
 
 .panel {

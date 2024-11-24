@@ -4,22 +4,60 @@ const { engine } = require("express-handlebars");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
-var indexRouter = require("./routes/index");
-var loginRouter = require("./routes/login");
-var dashboardRouter = require("./routes/dashboard");
-var Mood = require("./models/mood");
-
 var mongoose = require("mongoose");
 var configs = require("./configs/globals");
-
 var hbs = require("hbs");
+//routers
+var indexRouter = require("./routes/index");
+var dashboardRouter = require("./routes/dashboard");
+var User = require("./models/user");
+//passport and session
+var passport = require("passport");
+var session = require("express-session");
+//model
+var User = require("./models/user");
 
 var app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
+
+app.use(logger("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(User.createStrategy());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use("/", indexRouter);
+app.use("/dashboard", dashboardRouter);
+
+mongoose
+  .connect(configs.ConnectionStrings.MongoDB)
+  .then(() => {
+    console.log("Connected Successfully!");
+    // Mood.seedDatabase();
+    // createUsersAndRecords();
+  })
+  .catch((error) => {
+    console.log(`Error while connecting: ${error}`);
+  });
 
 app.engine(
   "hbs",
@@ -51,35 +89,6 @@ app.engine(
     },
   })
 );
-
-app.set("view engine", "hbs");
-
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-
-app.use("/", indexRouter);
-app.use("/", loginRouter);
-app.use("/dashboard", dashboardRouter);
-
-mongoose
-  .connect(configs.ConnectionStrings.MongoDB)
-  .then(() => {
-    console.log("Connected Successfully!");
-    Mood.seedDatabase(); // Now this runs after successful DB connection
-  })
-  .catch((error) => {
-    console.log(`Error while connecting: ${error}`);
-  });
-
-hbs.registerHelper("ifCond", function (v1, operator, v2, options) {
-  if (operator === "==") {
-    return v1 == v2 ? options.fn(this) : options.inverse(this);
-  }
-  return options.inverse(this); // if the operator is not recognized, return the inverse block
-});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
